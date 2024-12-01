@@ -1,6 +1,9 @@
-# Definição do Banco de Dados - Projeto Fortes
 
-Este arquivo contém a definição e criação de um banco de dados utilizando SQL. Abaixo estão os principais detalhes do script.
+# Projeto Fortes - Definição do Banco de Dados
+
+Este documento contém a descrição completa do banco de dados definido no arquivo SQL `PROJETO_FORTES_DDL.sql`. Ele especifica as tabelas, colunas e relações que compõem a estrutura do banco de dados.
+
+---
 
 ## Estrutura do Banco de Dados
 
@@ -9,7 +12,8 @@ Este arquivo contém a definição e criação de um banco de dados utilizando S
 CREATE DATABASE projeto_fortes;
 USE projeto_fortes;
 ```
-- **Banco de Dados:** `projeto_fortes`.
+- **Objetivo:** Criar o banco de dados chamado `projeto_fortes` e definir que todas as operações subsequentes ocorrerão neste banco.
+- **Nota:** Caso o banco de dados já exista, a execução pode gerar um erro. Certifique-se de verificar sua existência antes de criar.
 
 ---
 
@@ -24,14 +28,15 @@ CREATE TABLE IF NOT EXISTS donatarios(
     dona_cpf_representante VARCHAR(20) NOT NULL
 );
 ```
-- **Descrição:** Armazena informações sobre os donatários.
+- **Descrição:** A tabela `donatarios` armazena informações sobre os donatários associados ao sistema.
 - **Colunas:**
-  - `dona_id`: Identificador único (*Primary Key*).
-  - `dona_cnpj`: CNPJ do donatário (obrigatório).
-  - `dona_edital`: Edital associado (obrigatório).
-  - `dona_pessoa_cont`: Nome da pessoa de contato (obrigatório).
-  - `dona_nome_representante`: Nome do representante (obrigatório).
-  - `dona_cpf_representante`: CPF do representante (obrigatório).
+  - `dona_id`: Inteiro que serve como chave primária da tabela. Cada donatário possui um identificador único.
+  - `dona_cnpj`: Campo de texto (até 20 caracteres) que armazena o CNPJ do donatário.
+  - `dona_edital`: Texto (até 35 caracteres) representando o edital associado ao donatário.
+  - `dona_pessoa_cont`: Nome da pessoa de contato principal do donatário (até 35 caracteres).
+  - `dona_nome_representante`: Nome completo do representante legal do donatário (até 100 caracteres).
+  - `dona_cpf_representante`: CPF do representante legal (até 20 caracteres).
+- **Regras:** Nenhuma das colunas permite valores nulos.
 
 ---
 
@@ -45,21 +50,36 @@ CREATE TABLE IF NOT EXISTS funcionarios(
     func_data_nasc DATE NOT NULL
 );
 ```
-- **Descrição:** Armazena informações sobre os funcionários.
+- **Descrição:** A tabela `funcionarios` armazena dados dos funcionários do sistema.
 - **Colunas:**
-  - `func_id`: Identificador único (*Primary Key*).
-  - `func_nome`: Nome do funcionário (obrigatório).
-  - `func_email`: E-mail do funcionário (obrigatório).
-  - `func_cargo`: Cargo do funcionário (obrigatório).
-  - `func_data_nasc`: Data de nascimento do funcionário (obrigatório).
+  - `func_id`: Identificador único do funcionário (*Primary Key*).
+  - `func_nome`: Nome completo do funcionário (até 100 caracteres).
+  - `func_email`: Endereço de e-mail do funcionário (até 100 caracteres).
+  - `func_cargo`: Cargo ou função do funcionário na organização (até 30 caracteres).
+  - `func_data_nasc`: Data de nascimento do funcionário no formato de data.
+- **Regras:** Todas as colunas são obrigatórias, garantindo que nenhum registro seja inserido sem informações completas.
 
 ---
 
-## Uso
-1. Execute o script em um banco de dados MySQL para criar as tabelas e o banco de dados.
-2. Certifique-se de que possui permissões para criar bancos de dados.
+### Considerações Gerais
+- **Integridade dos Dados:** O uso de chaves primárias em ambas as tabelas assegura a integridade e unicidade dos registros.
+- **Extensibilidade:** Novas tabelas ou colunas podem ser adicionadas para expandir a funcionalidade do banco.
+- **Validações:** Os tipos de dados foram escolhidos para minimizar inconsistências. Campos como `CNPJ` e `CPF` são armazenados como texto para preservar formatações especiais.
 
 ---
 
-### Autor
-Gerado automaticamente a partir do script `PROJETO_FORTES_DDL.sql`.
+## Instruções para Uso
+1. **Requisitos:** É necessário um servidor MySQL para executar o script.
+2. **Execução do Script:**
+   - Abra seu cliente MySQL ou ferramenta de gerenciamento de banco de dados.
+   - Execute o conteúdo do arquivo `PROJETO_FORTES_DDL.sql`.
+3. **Verificação:**
+   - Após a execução, confirme se as tabelas `donatarios` e `funcionarios` foram criadas corretamente.
+   - Utilize o comando `SHOW TABLES;` para listar as tabelas existentes no banco.
+
+---
+
+### Autor e Documentação
+- Este script e documentação foram gerados automaticamente e representam um exemplo básico de estruturação de banco de dados.
+
+Se houver dúvidas ou melhorias, entre em contato com o responsável pelo projeto.
