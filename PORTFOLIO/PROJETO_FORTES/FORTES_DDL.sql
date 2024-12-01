@@ -1,4 +1,4 @@
-CREATE DATABASE projeto_fortes;
+CREATE DATABASE IF NOT EXISTS projeto_fortes;
 
 USE projeto_fortes;
 
