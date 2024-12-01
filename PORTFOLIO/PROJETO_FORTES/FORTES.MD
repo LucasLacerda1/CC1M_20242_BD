@@ -6,10 +6,10 @@ Este arquivo contém a definição e criação de um banco de dados utilizando S
 
 ### 1. Criação do Banco de Dados
 ```sql
-CREATE DATABASE teste_davi;
-USE teste_davi;
+CREATE DATABASE projeto_fortes;
+USE projeto_fortes;
 ```
-- **Banco de Dados:** `teste_davi`.
+- **Banco de Dados:** `projeto_fortes`.
 
 ---
 
