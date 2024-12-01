@@ -62,7 +62,7 @@ reun_vist_id INT NOT NULL,
 CONSTRAINT reun_vist_id_FK FOREIGN KEY (reun_vist_id) REFERENCES vistorias (vist_id)
 );
 
-CREATE TABLE IF NOT EXISTS endereço(
+CREATE TABLE IF NOT EXISTS endereco(
 ende_num_rua INT,
 ende_rua VARCHAR(100) NOT NULL,
 ende_bairro VARCHAR(100) NOT NULL,
