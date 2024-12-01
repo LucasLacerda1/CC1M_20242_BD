@@ -1,85 +1,72 @@
+# Estrutura e Funcionalidades do Banco de Dados - Projeto Fortes
 
-# Projeto Fortes - Definição do Banco de Dados
-
-Este documento contém a descrição completa do banco de dados definido no arquivo SQL `PROJETO_FORTES_DDL.sql`. Ele especifica as tabelas, colunas e relações que compõem a estrutura do banco de dados.
-
----
-
-## Estrutura do Banco de Dados
-
-### 1. Criação do Banco de Dados
-```sql
-CREATE DATABASE projeto_fortes;
-USE projeto_fortes;
-```
-- **Objetivo:** Criar o banco de dados chamado `projeto_fortes` e definir que todas as operações subsequentes ocorrerão neste banco.
-- **Nota:** Caso o banco de dados já exista, a execução pode gerar um erro. Certifique-se de verificar sua existência antes de criar.
+Este documento detalha a estrutura e funcionalidades do banco de dados definido pelo script SQL, incluindo tabelas, colunas e suas aplicações práticas.
 
 ---
 
-### 2. Tabela: `donatarios`
-```sql
-CREATE TABLE IF NOT EXISTS donatarios(
-    dona_id INT PRIMARY KEY,
-    dona_cnpj VARCHAR(20) NOT NULL,
-    dona_edital VARCHAR(35) NOT NULL,
-    dona_pessoa_cont VARCHAR(35) NOT NULL,
-    dona_nome_representante VARCHAR(100) NOT NULL,
-    dona_cpf_representante VARCHAR(20) NOT NULL
-);
-```
-- **Descrição:** A tabela `donatarios` armazena informações sobre os donatários associados ao sistema.
-- **Colunas:**
-  - `dona_id`: Inteiro que serve como chave primária da tabela. Cada donatário possui um identificador único.
-  - `dona_cnpj`: Campo de texto (até 20 caracteres) que armazena o CNPJ do donatário.
-  - `dona_edital`: Texto (até 35 caracteres) representando o edital associado ao donatário.
-  - `dona_pessoa_cont`: Nome da pessoa de contato principal do donatário (até 35 caracteres).
-  - `dona_nome_representante`: Nome completo do representante legal do donatário (até 100 caracteres).
-  - `dona_cpf_representante`: CPF do representante legal (até 20 caracteres).
-- **Regras:** Nenhuma das colunas permite valores nulos.
+## Estrutura Geral
+
+O banco de dados é composto por duas tabelas principais: `donatarios` e `funcionarios`. Cada tabela foi projetada para armazenar informações específicas e possui uma chave primária para garantir a integridade dos dados.
 
 ---
 
-### 3. Tabela: `funcionarios`
-```sql
-CREATE TABLE IF NOT EXISTS funcionarios(
-    func_id INT PRIMARY KEY,
-    func_nome VARCHAR(100) NOT NULL,
-    func_email VARCHAR(100) NOT NULL,
-    func_cargo VARCHAR(30) NOT NULL,
-    func_data_nasc DATE NOT NULL
-);
-```
-- **Descrição:** A tabela `funcionarios` armazena dados dos funcionários do sistema.
-- **Colunas:**
-  - `func_id`: Identificador único do funcionário (*Primary Key*).
-  - `func_nome`: Nome completo do funcionário (até 100 caracteres).
-  - `func_email`: Endereço de e-mail do funcionário (até 100 caracteres).
-  - `func_cargo`: Cargo ou função do funcionário na organização (até 30 caracteres).
-  - `func_data_nasc`: Data de nascimento do funcionário no formato de data.
-- **Regras:** Todas as colunas são obrigatórias, garantindo que nenhum registro seja inserido sem informações completas.
+### 1. Tabela: `donatarios`
+**Descrição:** A tabela `donatarios` armazena dados de pessoas ou entidades que atuam como donatários.
+
+#### Estrutura:
+| Coluna                   | Tipo de Dados     | Restrições     | Descrição                                   |
+|--------------------------|-------------------|----------------|-------------------------------------------|
+| `dona_id`                | INT               | PRIMARY KEY    | Identificador único para o donatário.     |
+| `dona_cnpj`              | VARCHAR(20)       | NOT NULL       | CNPJ da entidade donatária.               |
+| `dona_edital`            | VARCHAR(35)       | NOT NULL       | Edital associado ao donatário.            |
+| `dona_pessoa_cont`       | VARCHAR(35)       | NOT NULL       | Pessoa de contato principal.              |
+| `dona_nome_representante`| VARCHAR(100)      | NOT NULL       | Nome do representante legal.              |
+| `dona_cpf_representante` | VARCHAR(20)       | NOT NULL       | CPF do representante legal.               |
+
+#### Funcionalidades:
+1. **Armazenamento de Dados Legais:**
+   - Cadastra CNPJ, CPF e outras informações legais de donatários.
+2. **Gestão de Editais:**
+   - Relaciona os donatários aos editais específicos em que estão associados.
+3. **Consulta Rápida:**
+   - Permite localizar donatários rapidamente usando o `dona_id`.
 
 ---
 
-### Considerações Gerais
-- **Integridade dos Dados:** O uso de chaves primárias em ambas as tabelas assegura a integridade e unicidade dos registros.
-- **Extensibilidade:** Novas tabelas ou colunas podem ser adicionadas para expandir a funcionalidade do banco.
-- **Validações:** Os tipos de dados foram escolhidos para minimizar inconsistências. Campos como `CNPJ` e `CPF` são armazenados como texto para preservar formatações especiais.
+### 2. Tabela: `funcionarios`
+**Descrição:** A tabela `funcionarios` armazena informações de funcionários associados ao sistema.
+
+#### Estrutura:
+| Coluna          | Tipo de Dados  | Restrições     | Descrição                                 |
+|-----------------|----------------|----------------|-------------------------------------------|
+| `func_id`       | INT            | PRIMARY KEY    | Identificador único para o funcionário.  |
+| `func_nome`     | VARCHAR(100)   | NOT NULL       | Nome completo do funcionário.            |
+| `func_email`    | VARCHAR(100)   | NOT NULL       | E-mail de contato do funcionário.        |
+| `func_cargo`    | VARCHAR(30)    | NOT NULL       | Cargo ou função do funcionário.          |
+| `func_data_nasc`| DATE           | NOT NULL       | Data de nascimento do funcionário.       |
+
+#### Funcionalidades:
+1. **Gestão de Recursos Humanos:**
+   - Registra dados pessoais e profissionais dos funcionários.
+2. **Validação de Registros:**
+   - Garantia de que todos os campos obrigatórios sejam preenchidos.
+3. **Consulta por Cargo:**
+   - Possibilita a filtragem de funcionários com base em seu cargo ou data de nascimento.
 
 ---
 
-## Instruções para Uso
-1. **Requisitos:** É necessário um servidor MySQL para executar o script.
-2. **Execução do Script:**
-   - Abra seu cliente MySQL ou ferramenta de gerenciamento de banco de dados.
-   - Execute o conteúdo do arquivo `PROJETO_FORTES_DDL.sql`.
-3. **Verificação:**
-   - Após a execução, confirme se as tabelas `donatarios` e `funcionarios` foram criadas corretamente.
-   - Utilize o comando `SHOW TABLES;` para listar as tabelas existentes no banco.
+## Funcionalidades Gerais do Banco de Dados
+1. **Cadastro de Informações:**
+   - Permite inserir dados de donatários e funcionários de forma segura e estruturada.
+2. **Consulta e Relatórios:**
+   - Facilita consultas para gerar relatórios administrativos ou jurídicos.
+3. **Expansibilidade:**
+   - Projetado para aceitar novas tabelas e relações sem impactar o funcionamento atual.
+4. **Integridade dos Dados:**
+   - Chaves primárias e restrições `NOT NULL` garantem consistência.
 
 ---
 
-### Autor e Documentação
-- Este script e documentação foram gerados automaticamente e representam um exemplo básico de estruturação de banco de dados.
+### Considerações Finais
+Esta estrutura oferece um banco de dados simples e funcional para gerenciar informações de donatários e funcionários. Ele pode ser facilmente adaptado e expandido para atender a requisitos adicionais, como vinculação entre as tabelas ou integração com sistemas externos.
 
-Se houver dúvidas ou melhorias, entre em contato com o responsável pelo projeto.
