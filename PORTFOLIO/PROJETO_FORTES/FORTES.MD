@@ -9,7 +9,7 @@ Este documento detalha a estrutura e as funcionalidades de um banco de dados rel
 
 ### 1. Banco de Dados
 ```sql
-CREATE DATABASE projeto_fortes;
+CREATE DATABASE IF NOT EXISTS projeto_fortes;
 USE projeto_fortes;
 ```
 - **Descrição:** Cria o banco de dados `projeto_fortes` e o define como o banco de trabalho ativo.
